@@ -18,6 +18,10 @@ const Auth = () => {
   useEffect(() => {
     if (user && !authLoading) {
       setRedirecting(true);
+      // Use setTimeout to ensure smooth transition
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 1000);
     }
   }, [user, authLoading]);
 
@@ -29,7 +33,6 @@ const Auth = () => {
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-muted-foreground animate-pulse">Redirecting to dashboard...</p>
         </div>
-        <Navigate to="/dashboard" replace />
       </div>
     );
   }
