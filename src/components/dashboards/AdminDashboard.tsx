@@ -96,7 +96,7 @@ export const AdminDashboard = () => {
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{stats.open_tickets}</div>
+            <div className="text-2xl font-bold text-status-open">{stats.open_tickets}</div>
           </CardContent>
         </Card>
 
@@ -106,7 +106,7 @@ export const AdminDashboard = () => {
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{stats.in_progress_tickets}</div>
+            <div className="text-2xl font-bold text-status-in-progress">{stats.in_progress_tickets}</div>
           </CardContent>
         </Card>
 
@@ -116,7 +116,7 @@ export const AdminDashboard = () => {
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.resolved_tickets}</div>
+            <div className="text-2xl font-bold text-status-resolved">{stats.resolved_tickets}</div>
           </CardContent>
         </Card>
 

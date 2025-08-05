@@ -92,7 +92,7 @@ export const UserDashboard = () => {
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{stats.open}</div>
+            <div className="text-2xl font-bold text-status-open">{stats.open}</div>
           </CardContent>
         </Card>
 
@@ -102,7 +102,7 @@ export const UserDashboard = () => {
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{stats.in_progress}</div>
+            <div className="text-2xl font-bold text-status-in-progress">{stats.in_progress}</div>
           </CardContent>
         </Card>
 
@@ -112,7 +112,7 @@ export const UserDashboard = () => {
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.resolved}</div>
+            <div className="text-2xl font-bold text-status-resolved">{stats.resolved}</div>
           </CardContent>
         </Card>
       </div>

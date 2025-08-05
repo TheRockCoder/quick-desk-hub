@@ -39,17 +39,17 @@ interface TicketListProps {
 }
 
 const statusColors = {
-  open: 'bg-red-100 text-red-800 border-red-200',
-  in_progress: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  resolved: 'bg-green-100 text-green-800 border-green-200',
-  closed: 'bg-gray-100 text-gray-800 border-gray-200'
+  open: 'bg-status-open text-status-open-foreground border-status-open',
+  in_progress: 'bg-status-in-progress text-status-in-progress-foreground border-status-in-progress',
+  resolved: 'bg-status-resolved text-status-resolved-foreground border-status-resolved',
+  closed: 'bg-status-closed text-status-closed-foreground border-status-closed'
 };
 
 const priorityColors = {
-  low: 'bg-blue-100 text-blue-800 border-blue-200',
-  medium: 'bg-orange-100 text-orange-800 border-orange-200',
-  high: 'bg-red-100 text-red-800 border-red-200',
-  urgent: 'bg-purple-100 text-purple-800 border-purple-200'
+  low: 'bg-priority-low text-priority-low-foreground border-priority-low',
+  medium: 'bg-priority-medium text-priority-medium-foreground border-priority-medium',
+  high: 'bg-priority-high text-priority-high-foreground border-priority-high',
+  urgent: 'bg-priority-urgent text-priority-urgent-foreground border-priority-urgent'
 };
 
 export const TicketList = ({ refreshKey, userRole, statusFilter, assignedToMe }: TicketListProps) => {

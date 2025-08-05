@@ -61,6 +61,26 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				status: {
+					open: 'hsl(var(--status-open))',
+					'open-foreground': 'hsl(var(--status-open-foreground))',
+					'in-progress': 'hsl(var(--status-in-progress))',
+					'in-progress-foreground': 'hsl(var(--status-in-progress-foreground))',
+					resolved: 'hsl(var(--status-resolved))',
+					'resolved-foreground': 'hsl(var(--status-resolved-foreground))',
+					closed: 'hsl(var(--status-closed))',
+					'closed-foreground': 'hsl(var(--status-closed-foreground))'
+				},
+				priority: {
+					low: 'hsl(var(--priority-low))',
+					'low-foreground': 'hsl(var(--priority-low-foreground))',
+					medium: 'hsl(var(--priority-medium))',
+					'medium-foreground': 'hsl(var(--priority-medium-foreground))',
+					high: 'hsl(var(--priority-high))',
+					'high-foreground': 'hsl(var(--priority-high-foreground))',
+					urgent: 'hsl(var(--priority-urgent))',
+					'urgent-foreground': 'hsl(var(--priority-urgent-foreground))'
 				}
 			},
 			borderRadius: {
