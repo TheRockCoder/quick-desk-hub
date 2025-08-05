@@ -27,6 +27,8 @@ export const Layout = ({ children }: LayoutProps) => {
 
   const handleSignOut = async () => {
     await signOut();
+    // Clear any cached data and redirect
+    window.location.href = '/auth';
   };
 
   return (
