@@ -6,6 +6,7 @@ export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -14,20 +15,23 @@ export const useAuth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (mounted) {
-          console.log('Auth state changed:', event, session?.user?.id);
+          console.log('Auth state changed:', event, !!session?.user);
           setSession(session);
           setUser(session?.user ?? null);
-          setLoading(false);
+          if (initialized) {
+            setLoading(false);
+          }
         }
       }
     );
 
-    // Check for existing session
+    // Check for existing session ONCE
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (mounted) {
-        console.log('Initial session check:', session?.user?.id);
+        console.log('Initial session check:', !!session?.user);
         setSession(session);
         setUser(session?.user ?? null);
+        setInitialized(true);
         setLoading(false);
       }
     });

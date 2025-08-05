@@ -18,10 +18,24 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
   const { profile } = useUserProfile();
 
-  if (!user) {
+  // Show loading while auth is being determined
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-4 animate-fade-in">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Only redirect if we're certain there's no user and auth is not loading
+  if (!user && !loading) {
+    console.log('No user found in Layout, redirecting to auth');
     return <Navigate to="/auth" replace />;
   }
 

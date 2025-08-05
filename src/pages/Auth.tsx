@@ -13,17 +13,24 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
 
-  // Handle smooth redirection with better logic
+  // Handle redirection only once when user is authenticated
   useEffect(() => {
-    if (user && !authLoading) {
-      console.log('User authenticated, redirecting to dashboard');
+    if (user && !authLoading && !redirecting) {
+      console.log('User authenticated, setting redirect flag');
       setRedirecting(true);
-      // Use navigate instead of window.location for better state management
-      setTimeout(() => {
-        window.location.replace('/dashboard');
-      }, 500);
     }
-  }, [user, authLoading]);
+  }, [user, authLoading, redirecting]);
+
+  // Separate effect for actual redirect to prevent loops
+  useEffect(() => {
+    if (redirecting) {
+      console.log('Redirecting to dashboard...');
+      const timer = setTimeout(() => {
+        window.location.replace('/dashboard');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [redirecting]);
 
   // Show loading animation during redirect
   if (redirecting || (user && !authLoading)) {

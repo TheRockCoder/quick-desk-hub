@@ -9,17 +9,17 @@ const Index = () => {
   const [redirectMessage, setRedirectMessage] = useState('');
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !redirecting) {
       setRedirecting(true);
       if (user) {
         setRedirectMessage('Welcome back! Redirecting to dashboard...');
-        setTimeout(() => window.location.replace('/dashboard'), 300);
+        setTimeout(() => window.location.replace('/dashboard'), 800);
       } else {
         setRedirectMessage('Redirecting to login...');
-        setTimeout(() => window.location.replace('/auth'), 200);
+        setTimeout(() => window.location.replace('/auth'), 600);
       }
     }
-  }, [user, loading]);
+  }, [user, loading, redirecting]);
 
   if (loading || redirecting) {
     return (
