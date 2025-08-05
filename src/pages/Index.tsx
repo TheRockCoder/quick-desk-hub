@@ -13,13 +13,13 @@ const Index = () => {
       setRedirecting(true);
       if (user) {
         setRedirectMessage('Welcome back! Redirecting to dashboard...');
-        setTimeout(() => navigate('/dashboard'), 500);
+        setTimeout(() => window.location.replace('/dashboard'), 300);
       } else {
         setRedirectMessage('Redirecting to login...');
-        setTimeout(() => navigate('/auth'), 300);
+        setTimeout(() => window.location.replace('/auth'), 200);
       }
     }
-  }, [user, loading, navigate]);
+  }, [user, loading]);
 
   if (loading || redirecting) {
     return (
