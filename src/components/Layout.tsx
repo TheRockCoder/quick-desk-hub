@@ -1,5 +1,6 @@
+
 import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserProfile } from '@/hooks/useUserProfile';
@@ -20,6 +21,7 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   const { user, signOut, loading } = useAuth();
   const { profile } = useUserProfile();
+  const navigate = useNavigate();
 
   // Show loading while auth is being determined
   if (loading) {
@@ -45,13 +47,26 @@ export const Layout = ({ children }: LayoutProps) => {
     window.location.href = '/auth';
   };
 
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
+
+  const handleSettingsClick = () => {
+    navigate('/settings');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold text-primary">QuickDesk</h1>
+            <h1 
+              className="text-2xl font-bold text-primary cursor-pointer" 
+              onClick={() => navigate('/dashboard')}
+            >
+              QuickDesk
+            </h1>
             {profile && (
               <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded-md text-sm">
                 {profile.role}
@@ -78,11 +93,11 @@ export const Layout = ({ children }: LayoutProps) => {
                 </div>
               </div>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleProfileClick}>
                 <User className="mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSettingsClick}>
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
               </DropdownMenuItem>
