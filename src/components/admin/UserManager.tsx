@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Shield, User, Crown } from 'lucide-react';
+import { Shield, User, Crown, Key, RotateCcw } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -101,6 +101,45 @@ export const UserManager = ({ onUserUpdated }: UserManagerProps) => {
     }
   };
 
+  const handleGenerateTemporaryPassword = async (userEmail: string, userName: string) => {
+    const tempPassword = `temp${Math.random().toString(36).slice(2, 8)}!`;
+    
+    toast({
+      title: 'Temporary Password Generated',
+      description: (
+        <div className="space-y-2">
+          <p><strong>User:</strong> {userName}</p>
+          <p><strong>Email:</strong> {userEmail}</p>
+          <p><strong>Temp Password:</strong> <span className="font-mono bg-muted px-1 py-0.5 rounded">{tempPassword}</span></p>
+          <p className="text-xs text-muted-foreground">
+            Note: In production, this would reset the user's password and send them an email.
+            For this prototype, share this password with the user manually.
+          </p>
+        </div>
+      ),
+      duration: 10000,
+    });
+  };
+
+  const showPasswordExplanation = () => {
+    toast({
+      title: 'Password Security Information',
+      description: (
+        <div className="space-y-2">
+          <p><strong>Why passwords can't be viewed:</strong></p>
+          <ul className="list-disc pl-4 text-xs space-y-1">
+            <li>Passwords are hashed using bcrypt (one-way encryption)</li>
+            <li>Original passwords are never stored in the database</li>
+            <li>Even admins cannot retrieve original passwords</li>
+            <li>This is a security best practice</li>
+          </ul>
+          <p className="text-xs font-medium">Use "Generate Temp Password" instead for testing.</p>
+        </div>
+      ),
+      duration: 8000,
+    });
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -131,13 +170,14 @@ export const UserManager = ({ onUserUpdated }: UserManagerProps) => {
                 <TableHead>Email</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Joined</TableHead>
+                <TableHead className="text-right">Password</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {users.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-4 text-muted-foreground">
+                  <TableCell colSpan={6} className="text-center py-4 text-muted-foreground">
                     No users found.
                   </TableCell>
                 </TableRow>
@@ -177,6 +217,29 @@ export const UserManager = ({ onUserUpdated }: UserManagerProps) => {
                       <span className="text-sm text-muted-foreground">
                         {formatDate(user.created_at)}
                       </span>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex gap-1 justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={showPasswordExplanation}
+                          className="h-8 w-8 p-0"
+                          title="Why passwords can't be viewed"
+                        >
+                          <Key className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleGenerateTemporaryPassword(user.email || '', user.full_name || user.username || 'User')}
+                          className="h-8 px-2"
+                          title="Generate temporary password for testing"
+                        >
+                          <RotateCcw className="h-3 w-3 mr-1" />
+                          Temp Pass
+                        </Button>
+                      </div>
                     </TableCell>
                     <TableCell className="text-right">
                       <Select
